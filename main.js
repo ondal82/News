@@ -1,9 +1,6 @@
 const API_KEY_NewsApi = `cdd4b0ea8b224300ab35acd8f3ed4981`;
 
 let keyword = "";
-let 
-
-
 let news = [];
 
 const getLatestNews = async () => {

@@ -1,0 +1,173 @@
+// 기본 요소 설정
+
+@charset "utf-8";
+
+* {margin: 0; padding: 0; box-sizing: border-box;}
+li{list-style: none;}
+a{text-decoration: none; color: inherit;}
+img{max-width: 100%; vertical-align: top;}
+table{border-collapse: collapse; border: 1px solid #ccc; width: 100%;}
+button{
+    cursor: pointer;
+    &:hover {
+        opacity: 0.7;
+    }
+}
+body{background: #fff; color: #333;}
+
+/* font-family settings */
+@font-face {
+    font-family: "NanumSquareB";
+    src: url("../fonts/NanumSquareB.eot");
+    src: local("NanumSquareB"), url("../fonts/NanumSquareB.woff") format("woff"), url("../fonts/NanumSquareB.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NanumSquareR";
+    src: url("../fonts/NanumSquareR.eot");
+    src: local("NanumSquareR"), url("../fonts/NanumSquareR.woff") format("woff"), url("../fonts/NanumSquareR.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NanumSquareRoundB";
+    src: url("../fonts/NanumSquareRoundB.eot");
+    src: local("NanumSquareRoundB"), url("../fonts/NanumSquareRoundB.woff") format("woff"), url("../fonts/NanumSquareRoundB.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NanumSquareRoundR";
+    src: url("../fonts/NanumSquareRoundR.eot");
+    src: local("NanumSquareRoundR"), url("../fonts/NanumSquareRoundR.woff") format("woff"), url("../fonts/NanumSquareRoundR.ttf") format("truetype");
+}
+
+
+@font-face {
+    font-family: "NanumDaSiSiJagHae";
+    src: url("../fonts/NanumDaSiSiJagHae.eot");
+    src: local("NanumDaSiSiJagHae"), url("../fonts/NanumDaSiSiJagHae.woff") format("woff"), url("../fonts/NanumDaSiSiJagHae.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "OldLondon";
+    src: url("../fonts/OldLondon.eot");
+    src: local("OldLondon"), url("../fonts/OldLondon.woff") format("woff"), url("../fonts/OldLondon.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "OldLondonA";
+    src: url("../fonts/OldLondonAlternate.eot");
+    src: local("OldLondonAlternate"), url("../fonts/OldLondonAlternate.woff") format("woff"), url("../fonts/OldLondonAlternate.ttf") format("truetype");
+}
+
+/* basic element form settings */
+
+  //폰트 패밀리 Mixin 설정
+
+    @mixin font_NanumR($font_size:20px) {
+        $font_name:"NanumSquareR";
+        font-family: $font_name;
+        font-size: $font_size;
+    }
+
+    @mixin font_NanumB($font_size:20px) {
+        $font_name:"NanumSquareB";
+        font-family: $font_name;
+        font-size: $font_size;
+    }
+
+    @mixin font_NanumRR($font_size:20px) {
+        $font_name:"NanumSquareRoundR";
+        font-family: $font_name;
+        font-size: $font_size;
+    }
+
+    @mixin font_NanumRB($font_size:20px) {
+        $font_name:"NanumSquareRoundB";
+        font-family: $font_name;
+        font-size: $font_size;
+    }
+
+    
+    @mixin font_NanumS($font_size:20px) {
+        $font_name:"NanumDaSiSiJagHae";
+        font-family: $font_name;
+        font-size: $font_size;
+    }
+
+    @mixin font_OldLondon($font_size:20px) {
+        $font_name:"OldLondon";
+        font-family: $font_name;
+        font-size: $font_size;
+    }
+
+    @mixin font_OldLondonA($font_size:20px) {
+        $font_name:"OldLondonAlternate";
+        font-family: $font_name;
+        font-size: $font_size;
+    }
+
+
+// main
+
+main {
+    border: solid 1px #333;
+    text-align: center;
+    // margin: 10px;
+    // width: 100%;
+}
+
+header {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+    .func_box {
+        height: 30px;
+    }
+
+    .title {
+        @include font_OldLondon(60px);
+        line-height: 100%;
+        letter-spacing: -2px;
+    }
+
+    nav {
+        margin-top: 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        border-top: 1px solid #bebebe;
+        border-bottom: 4px double #6d6d6d;
+        gap:0 10px;
+        
+
+        button {
+            border: none;
+            background: none;
+            padding: 3px 5px;
+            margin: 5px 0;
+
+            &:hover {
+                background-color: #add8e6;
+                border-radius: 5px;
+            }
+
+        }
+
+    }
+}
+
+.headline {
+    margin-top: 1em;
+    // border: solid 1px #b13c3c;
+    text-align: left;
+
+    .card_hl {
+        border-bottom: solid 1px #333;
+        padding: 5px;
+        min-height: 220px;
+        // max-height: 300px;
+    }
+}
+

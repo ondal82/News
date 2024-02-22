@@ -79,13 +79,28 @@ main {
 }
 
 header .func_box {
-  height: 30px;
+  display: flex;
+  justify-content: start;
+  margin: 10px 0 0 0;
+  gap: 10px;
+}
+header .func_box input {
+  padding: 5px;
 }
 header .title {
   font-family: "OldLondon";
   font-size: 60px;
+  height: 60px;
   line-height: 100%;
   letter-spacing: -2px;
+}
+header .title p {
+  display: inline-block;
+  margin: 0;
+  height: 60px;
+}
+header .title a {
+  margin: 0;
 }
 header nav {
   margin-top: 1em;
@@ -102,10 +117,16 @@ header nav button {
   background: none;
   padding: 3px 5px;
   margin: 5px 0;
+  font-family: "NanumSquareRoundR";
+  font-size: 15px;
+  vertical-align: middle;
 }
 header nav button:hover {
   background-color: #add8e6;
   border-radius: 5px;
+}
+header nav .selected {
+  font-weight: 900;
 }
 
 .headline {
@@ -114,6 +135,39 @@ header nav button:hover {
 }
 .headline .card_hl {
   border-bottom: solid 1px #333;
-  padding: 5px;
-  min-height: 220px;
+  min-height: 230px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  margin: 3px 0 3px;
+}
+.headline .card_hl img {
+  width: 100%;
+}
+.headline .card_hl .article_box {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: 210px;
+  margin: 5px 0 5px;
+}
+.headline .card_hl h2 {
+  font-family: "NanumSquareRoundB";
+  font-size: 35px;
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.headline .card_hl .no-result {
+  font-family: "NanumSquareRoundB";
+  font-size: 3vw;
+  text-align: center;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  color: #416886;
 }

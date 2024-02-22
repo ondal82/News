@@ -38,8 +38,8 @@ const getNewsByCategory = async (event) => {
     const nav_category = event.target.textContent.toLowerCase();
     // console.log("category",nav_category);
     const url = new URL(
-        `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=kr&category=${nav_category}`
-        // `https://news-on.netlify.app/top-headlines?country=kr&category=${nav_category}`
+        // `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=kr&category=${nav_category}`
+        `https://news-on.netlify.app/top-headlines?country=kr&category=${nav_category}`
         // `https://newsapi.org/v2/top-headlines?country=kr&category=${nav_category}&apiKey=${API_KEY_NewsApi}`
     );
     
@@ -63,9 +63,9 @@ const getNewsByKeyword = async (event) => {
 
     // console.log("category",nav_category);
     const url = new URL(
-        `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=kr&q=${keyword}`
-        // `https://news-on.netlify.app/top-headlines?country=kr&category=${nav_category}`
-        // `https://newsapi.org/v2/top-headlines?country=kr&category=${nav_category}&apiKey=${API_KEY_NewsApi}`
+        // `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=kr&q=${keyword}`
+        `https://news-on.netlify.app/top-headlines?country=kr&q=${keyword}`
+        // `https://newsapi.org/v2/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY_NewsApi}`
     );
     
     const response = await fetch(url);

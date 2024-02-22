@@ -38,11 +38,8 @@ const getLatestNews = async () => {
     navItems.forEach(item => {item.className =""});
     navItems[0].className = "selected";
     const url = new URL (
-        // `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY_NewsApi}`
-        // `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines`
-        // `https://news-on.netlify.app/top-headlines`
-        // `https://news-on.netlify.app/top-headlines?q=${keyword}&country=kr&pagesize=${PAGE_SIZE}`
-        `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=kr`
+        `https://news-on.netlify.app/top-headlines?country-kr`
+        // `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=kr`
     );
     // console.log("uuu",url);
     const response = await fetch(url);

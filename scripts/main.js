@@ -3,7 +3,10 @@ const API_KEY_NewsApi = `cdd4b0ea8b224300ab35acd8f3ed4981`;
 // let keyword = "";
 let newsList = [];
 const navItems = document.querySelectorAll("nav button");
+const sideNavItems = document.querySelectorAll(".side_nav button");
 let searchBtn = document.getElementById("btn_search");
+let searchBox = document.getElementById("search_box");
+let inputBox = document.getElementById("input_box");
 
 navItems.forEach((item,index) => 
 { if(index == 0 ) {
@@ -13,11 +16,27 @@ navItems.forEach((item,index) =>
     }
 });
 
+sideNavItems.forEach((item,index) => 
+{ if(index == 0 ) {
+    item.addEventListener("click",(event)=>getLatestNews());
+    } else {
+    item.addEventListener("click",(event)=>getNewsByCategory(event));
+    }
+});
+
 searchBtn.addEventListener("click",(event)=>getNewsByKeyword());
+
+inputBox.addEventListener('keyup', function(e){
+    if(e.key == 'Enter'){
+        getNewsByKeyword()
+    }
+})
 
 // navItems.forEach((item) => item.addEventListener("click",(event)=>getNewsByCategory(event)));
 
 const getLatestNews = async () => {
+    navItems.forEach(item => {item.className =""});
+    navItems[0].className = "selected";
     const url = new URL (
         // `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY_NewsApi}`
         // `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines`
@@ -30,11 +49,16 @@ const getLatestNews = async () => {
     const data = await response.json();
     // console.log("rrr",response);
     newsList = data.articles;
+    
     render();
     // console.log("dddd",newsList);
 };
 
 const getNewsByCategory = async (event) => {
+
+    navItems.forEach(item => {item.className =""});
+    event.target.className = "selected";
+
     const nav_category = event.target.textContent.toLowerCase();
     // console.log("category",nav_category);
     const url = new URL(
@@ -52,9 +76,10 @@ const getNewsByCategory = async (event) => {
 }
 
 const getNewsByKeyword = async (event) => {
-    const keyword = document.getElementById("search_box").value;
+    navItems.forEach(item => {item.className =""});
+    const keyword = document.getElementById("input_box").value;
 
-    console.log("kw",keyword);
+    // console.log("kw",keyword);
 
     if ( !keyword || keyword == "" ) {
         renderBlank();
@@ -111,6 +136,7 @@ const render = () => {
 }
 
 const renderBlank = () => {
+    navItems.forEach(item => {item.className =""});
     const newsBlank = `<div class="row card_hl">
         <div class="col-lg-4">
             <div class="img_box">
@@ -118,13 +144,36 @@ const renderBlank = () => {
             </div>
         </div>
         <div class="col-lg-8">
-            <div class="article_box">
-                <div class="no-result">검색된 뉴스가 없습니다.</div>
-                </div>
-            </div>
+            
+            <div class="no-result">검색된 뉴스가 없습니다.</div>
+            
         </div>
     </div>`
     document.getElementById('headline_list').innerHTML = newsBlank;
+};
+
+const toggleSearchBox = () => {
+    if (searchBox.style.opacity == 0) {
+        searchBox.style.opacity = 1;
+    } else {
+        searchBox.style.opacity = 0;
+    }
+};
+
+// const toggleSearchBox = () => {
+//     if (searchBox.style.display === "inline-block") {
+//         searchBox.style.display = "none";
+//     } else {
+//         searchBox.style.display = "inline-block";
+//     }
+// };
+
+const toggleSide = () => {
+    if(document.getElementById("side_bar").style.width == "250px") {
+        document.getElementById("side_bar").style.width = "0";
+    } else {
+        document.getElementById("side_bar").style.width = "250px";
+    }    
 }
 
 getLatestNews();

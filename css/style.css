@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -81,52 +82,73 @@ main {
 header .func_box {
   display: flex;
   justify-content: start;
-  margin: 10px 0 0 0;
-  gap: 10px;
+  align-items: center;
+  margin: 15px 0 0;
+  min-height: 40px;
+  gap: 5px;
 }
-header .func_box input {
-  padding: 5px;
+header .func_box button {
+  border: none;
+  background-color: transparent;
+}
+header .func_box .search_box {
+  opacity: 0;
+  transition: 0.8s;
+}
+header .func_box .search_box input {
+  border-radius: 10px;
+  padding: 5px 5px 5px 15px;
+}
+header .func_box .search_box input::-moz-placeholder {
+  color: #b1b1b1;
+}
+header .func_box .search_box input::placeholder {
+  color: #b1b1b1;
+}
+header .func_box .btn_search {
+  width: 30px;
+  background-color: #c1e7ee;
+  border-radius: 10px;
+  padding: 2px 5px;
 }
 header .title {
   font-family: "OldLondon";
-  font-size: 60px;
-  height: 60px;
-  line-height: 100%;
+  font-size: 80px;
   letter-spacing: -2px;
+  margin: 5px 0 5px;
+  border-bottom: 1px solid #bebebe;
 }
 header .title p {
   display: inline-block;
   margin: 0;
-  height: 60px;
 }
 header .title a {
   margin: 0;
 }
 header nav {
-  margin-top: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  border-top: 1px solid #bebebe;
   border-bottom: 4px double #6d6d6d;
   gap: 0 10px;
 }
 header nav button {
   border: none;
+  border-radius: 10px;
   background: none;
-  padding: 3px 5px;
-  margin: 5px 0;
+  padding: 5px 10px;
+  margin: 0px 0 3px 0;
   font-family: "NanumSquareRoundR";
   font-size: 15px;
   vertical-align: middle;
 }
 header nav button:hover {
-  background-color: #add8e6;
-  border-radius: 5px;
+  background-color: #d0f2f8;
 }
 header nav .selected {
   font-weight: 900;
+  background-color: #d0f2f8;
 }
 
 .headline {
@@ -135,8 +157,8 @@ header nav .selected {
 }
 .headline .card_hl {
   border-bottom: solid 1px #333;
-  min-height: 230px;
   width: 100%;
+  min-height: 230px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -164,10 +186,89 @@ header nav .selected {
 }
 .headline .card_hl .no-result {
   font-family: "NanumSquareRoundB";
-  font-size: 3vw;
+  font-size: 55px;
   text-align: center;
-  margin: auto;
+  margin: 5px 0 5px;
   height: 100%;
   width: 100%;
   color: #416886;
+}
+
+.btn_hamburger .bar {
+  width: 30px;
+  height: 4px;
+  background-color: #333;
+  margin: 6px 0;
+  opacity: 0.9;
+}
+
+.show {
+  display: inline-block;
+}
+
+.side_bar {
+  height: 100%;
+  width: 0;
+  max-width: 240px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background: hsla(189, 100%, 88%, 0.75);
+  overflow-x: hidden;
+  transition: 0.7s;
+}
+.side_bar .side_nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 10px;
+  width: 240px;
+}
+.side_bar .side_nav button {
+  background-color: #9de8fd;
+  border: solid 2px #236c77;
+  position: relative;
+}
+.side_bar .side_nav button::before {
+  position: absolute;
+  content: "▶ ";
+  left: -20px;
+  color: #236c77;
+  font-size: 14px;
+}
+.side_bar .side_title {
+  margin: 40px auto 20px 20px;
+  font-family: "OldLondon";
+  font-size: 35px;
+  border-radius: 20px;
+  padding: 5px 30px;
+  border: solid 3px #333;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  background-color: #9de8fd;
+}
+.side_bar button {
+  display: block;
+  border: none;
+  background: transparent;
+  margin-left: 45px;
+  border-radius: 10px;
+  padding: 5px;
+}
+.side_bar button:hover {
+  background: #ffffff;
+}
+.side_bar .btn_close {
+  font-family: "NanumSquareRoundR";
+  font-size: 30px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 30px;
+  line-height: 110%;
+  border-radius: 20px;
+  padding: 0 5px;
+  background-color: #236c77;
+  color: #ffffff;
 }

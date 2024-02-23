@@ -226,22 +226,28 @@ header {
     .card_hl {
         border-bottom: solid 1px #333;
         width: 100%;
-        min-height: 230px;
-        // max-height: 300px;        
+        min-height: 240px;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items:center;
         vertical-align: middle;
-        margin: 3px 0 3px;
+        // margin: 3px 0 3px;
+        padding: 5px 0 5px;
 
-        img {width: 100%;}
+        img {
+            width: 100%;
+            object-fit: cover;
+            border: solid 1px #78a4f725;
+            min-height: 230px;
+            max-height: 400px;
+            // max-height: 250px;
+        }
 
         .article_box {
             display: flex;
             justify-content: space-between;
             flex-direction: column;
-            min-height: 210px;
-            margin: 5px 0 5px;
+            min-height: 240px;
         }
 
         h2 {
@@ -256,10 +262,12 @@ header {
         .no-result {
             @include font_NanumRB(55px);
             text-align: center;
-            margin: 5px 0 5px;
             height: 100%;
-            width: 100%;
             color: #416886;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            min-height: 240px;
         }
     }
 }

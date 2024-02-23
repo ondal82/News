@@ -4,7 +4,7 @@
 
     const API_KEY_NewsApi = `cdd4b0ea8b224300ab35acd8f3ed4981`;
 
-    const api_url = `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com`; 
+    const api_url = `https://news-on.netlify.app`;
     // `https://news-on.netlify.app`; //! 배포시 주소, netlify의 _redirects 기능으로 누나 API 주소 연결
     // `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com`; // ! 누나 API, 테스트 가능하지만 배포는 http인 것 주의
     // `https://newsapi.org/v2`; // ! news-api, 문서> https://newsapi.org/docs
@@ -80,27 +80,24 @@
 
     // ! 메인 렌더 함수 - id="headline_list" 아래 각각의 뉴스 card_h1 을 렌더
 
+    
     const render = () => {
         const newsHTML = newsList.map(
             (news) => `<div class="row card_hl">
-            <div class="col-lg-4">
-                <div class="img_box">
-                    <img src=${news.urlToImage ? news.urlToImage : "img/no-image.png"} alt="기사 이미지">
-                </div>
+            <div class="img_box col-lg-4">
+                <img src=${news.urlToImage ? news.urlToImage : "img/no-image.png"} onerror="this.onerror=null; this.src='img/404.png';" alt="기사 이미지">
             </div>
-            <div class="col-lg-8">
-                <div class="article_box">
-                    <h2>${news.title}</h2>
-                    <p>${news.description == null ? "(기사 내용 없음)":news.description}</p>
-                    <div class="article_info">
-                        ${news.source.name} * ${news.publishedAt.split("T")[0]} / ${news.publishedAt.split("T")[1].slice(0,-1)}
-                    </div>
+            <div class="article_box col-lg-8">
+                <h2>${news.title}</h2>
+                <p>${news.description == null ? "(기사 내용 없음)":news.description}</p>
+                <div class="article_info">
+                    ${news.source.name} * ${news.publishedAt.split("T")[0]} / ${news.publishedAt.split("T")[1].slice(0,-1)}
                 </div>
             </div>
         </div>`
         ).join('');
 
-        document.getElementById('headline_list').innerHTML = newsHTML;
+            document.getElementById('headline_list').innerHTML = newsHTML;
     }
 
     // ! 검색 결과가 없는 경우를 위한 랜더 함수
@@ -110,40 +107,63 @@
         resetCategory();
 
         const newsBlank = `<div class="row card_hl">
-            <div class="col-lg-4">
-                <div class="img_box">
-                    <img src="img/molru.gif"} alt="기사 이미지">
-                </div>
+            <div class="img_box col-lg-4">
+                <img src="img/molru.gif"} alt="기사 이미지">
             </div>
-            <div class="col-lg-8">
-                
+            <div class="article_box col-lg-8">
                 <div class="no-result">검색된 뉴스가 없습니다.</div>
-                
             </div>
         </div>`
         document.getElementById('headline_list').innerHTML = newsBlank;
     };
 
 
+    // ! 에러메시지용 렌더 함수
+
+    const renderError = (errorMessage) => {
+        const errorHTML = `<div class="alert alert-danger" role="alert">
+            ${errorMessage}
+        </div>`;
+
+        document.getElementById("headline_list").innerHTML = errorHTML;
+    }
+
 // * News API 관련 함수 정의
 
 
     // ! 공통으로 뉴스 렌더링 해주는 함수
 
-    const getNews = async () => {
-        const response = await fetch(url);
-        const data = await response.json();
-        newsList = data.articles;
+    const renderNews = async () => {
 
-        if (newsList.length == 0) {
-            renderBlank();
-            return
-        }
+        try {
 
-        render();
+            const response = await fetch(url);
+            const data = await response.json();
+            newsList = data.articles;
+            console.log("rrr",response);
+            console.log("what?",newsList);
+
+            if(response.status===200) {
+                
+                if (newsList.length == 0) {
+                    renderBlank();
+                    return
+                }
+
+                render();
+
+            } else {
+                throw new Error(data.message);
+            }
+
+        } catch(error) {
+            // console.log(error);
+            renderError(error.message);
+        };
+        
     }
 
-    // ! 신규 뉴스 가져오기 - navItem[0]로 호출, 시작시 호출
+    // ! (1) 신규 뉴스 가져오기 - navItem[0]로 호출, 시작시 호출
 
     const getLatestNews = async () => {
         
@@ -154,10 +174,10 @@
             `${api_url}/top-headlines?country=${api_country}&apiKey=${API_KEY_NewsApi}`
         );
 
-        getNews();
+        renderNews();
     };
 
-    // ! 카테고리별 가져오기 - 0번 외의 navItems, 카테고리 버튼 내 입력값을 가져오므로 text에 주의
+    // ! (2) 카테고리별 가져오기 - 0번 외의 navItems, 카테고리 버튼 내 입력값을 가져오므로 text에 주의
 
     const getNewsByCategory = async (event) => {
 
@@ -169,10 +189,10 @@
             `${api_url}/top-headlines?country=${api_country}&category=${nav_category}&apiKey=${API_KEY_NewsApi}`
         );
         
-        getNews();
+        renderNews();
     }
 
-    // ! 키워드별 가져오기 - 검색 버튼으로 호출
+    // ! (3) 키워드별 가져오기 - 검색 버튼으로 호출
 
     const getNewsByKeyword = async (event) => {
 
@@ -190,7 +210,7 @@
             `${api_url}/top-headlines?country=${api_country}&q=${keyword}&apiKey=${API_KEY_NewsApi}`
         );
         
-        getNews();
+        renderNews();
     }
 
 

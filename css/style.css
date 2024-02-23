@@ -158,22 +158,26 @@ header nav .selected {
 .headline .card_hl {
   border-bottom: solid 1px #333;
   width: 100%;
-  min-height: 230px;
+  min-height: 240px;
   display: flex;
   justify-content: center;
   align-items: center;
   vertical-align: middle;
-  margin: 3px 0 3px;
+  padding: 5px 0 5px;
 }
 .headline .card_hl img {
   width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: solid 1px rgba(120, 164, 247, 0.1450980392);
+  min-height: 230px;
+  max-height: 400px;
 }
 .headline .card_hl .article_box {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  min-height: 210px;
-  margin: 5px 0 5px;
+  min-height: 240px;
 }
 .headline .card_hl h2 {
   font-family: "NanumSquareRoundB";
@@ -188,10 +192,12 @@ header nav .selected {
   font-family: "NanumSquareRoundB";
   font-size: 55px;
   text-align: center;
-  margin: 5px 0 5px;
   height: 100%;
-  width: 100%;
   color: #416886;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 240px;
 }
 
 .btn_hamburger .bar {

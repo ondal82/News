@@ -4,19 +4,24 @@
 
     const API_KEY_NewsApi = `cdd4b0ea8b224300ab35acd8f3ed4981`;
 
-    const api_url = `https://news-on.netlify.app`; //! 배포시 주소, netlify의 _redirects 기능으로 누나 API 주소 연결
-    // const api_url = `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com`; // ! 누나 API, 테스트 가능하지만 배포는 http인 것 주의
-    // const api_url = `https://news-api.https://newsapi.org/v2`; // ! news-api, 문서> https://newsapi.org/docs
+    const api_url = `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com`; 
+    // `https://news-on.netlify.app`; //! 배포시 주소, netlify의 _redirects 기능으로 누나 API 주소 연결
+    // `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com`; // ! 누나 API, 테스트 가능하지만 배포는 http인 것 주의
+    // `https://newsapi.org/v2`; // ! news-api, 문서> https://newsapi.org/docs
 
     // ! 기본 국가 설정은 한국어. 테스트시 us <-> kr 전환. 
     const api_country = `kr`; 
 
+// * UI 관련 요소 설정
+
+    const sideBarWidth = "250px";
+    // ! css에서 max-width 350px로 제한중
 
 // * 전역 변수 설정
 
 
     let url = new URL(
-        `${api_url}/top-headlines?country=${api_country}`
+        `${api_url}/top-headlines?country=${api_country}&apiKey=${API_KEY_NewsApi}`
         );
 
     let newsList = [];
@@ -146,7 +151,7 @@
         navItems[0].className = "selected";
 
         url = new URL (
-            `${api_url}/top-headlines?country=${api_country}`
+            `${api_url}/top-headlines?country=${api_country}&apiKey=${API_KEY_NewsApi}`
         );
 
         getNews();
@@ -161,7 +166,7 @@
 
         const nav_category = event.target.textContent.toLowerCase();
         url = new URL(
-            `${api_url}/top-headlines?country=${api_country}&category=${nav_category}`
+            `${api_url}/top-headlines?country=${api_country}&category=${nav_category}&apiKey=${API_KEY_NewsApi}`
         );
         
         getNews();
@@ -182,7 +187,7 @@
         }
 
         url = new URL(
-            `${api_url}/top-headlines?country=${api_country}&q=${keyword}`
+            `${api_url}/top-headlines?country=${api_country}&q=${keyword}&apiKey=${API_KEY_NewsApi}`
         );
         
         getNews();
@@ -206,10 +211,10 @@
 
     const toggleSide = () => { 
 
-        if(sideBar.style.width == "250px") {
+        if(sideBar.style.width == sideBarWidth) {
             sideBar.style.width = "0";
         } else {
-            sideBar.style.width = "250px";
+            sideBar.style.width = sideBarWidth;
         }    
     }
 

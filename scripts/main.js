@@ -26,11 +26,19 @@
 
     let newsList = [];
 
+    let page = 1;
+    let totalResults = 0;
+
+    const pageSize = 10;
+    const pageGroup = 5;
+    const groupSize = 5;
+
+    let togglePopupState = "hide";
 
 // * HTML element 요소 - 오브젝트 설정
 
 
-    const navItems = document.querySelectorAll("nav button");
+    const navItems = document.querySelectorAll(".main_nav button");
     const sideNavItems = document.querySelectorAll(".side_nav button");
 
     const sideBar = document.getElementById("side_bar");
@@ -137,11 +145,19 @@
 
         try {
 
+            url.searchParams.set("page",page);
+            url.searchParams.set("pageSize",pageSize);
+
             const response = await fetch(url);
+
             const data = await response.json();
             newsList = data.articles;
-            console.log("rrr",response);
-            console.log("what?",newsList);
+            
+            console.log("ddd",data);
+
+            totalResults = data.totalResults;
+            // console.log("rrr",response);
+            // console.log("what?",newsList);
 
             if(response.status===200) {
                 
@@ -151,6 +167,7 @@
                 }
 
                 render();
+                renderPageBox();
 
             } else {
                 throw new Error(data.message);
@@ -180,6 +197,8 @@
     // ! (2) 카테고리별 가져오기 - 0번 외의 navItems, 카테고리 버튼 내 입력값을 가져오므로 text에 주의
 
     const getNewsByCategory = async (event) => {
+
+        page = 1;
 
         resetCategory();
         event.target.className = "selected";
@@ -213,6 +232,56 @@
         renderNews();
     }
 
+// * pagination 함수
+
+    const renderPageBox = () => {
+
+        const totalPages = Math.ceil(totalResults / pageSize);
+
+        const pageGroup = Math.ceil(page/groupSize);
+        
+        let lastPage = pageGroup * groupSize;
+
+        if (lastPage > totalPages) {
+            lastPage = totalPages
+        };
+
+        const firstPage = lastPage - (groupSize - 1)<=0? 1:lastPage - (groupSize - 1);
+
+    // ! ---
+
+        let paginationHTML = ``;
+
+        if (firstPage !== 1){
+            paginationHTML += `<li class="page-item"><a class="page-link" onclick="moveToPage(${firstPage-1})">&lt;</a></li>`;
+        } else {
+            paginationHTML += `<li class="page-item disabled"><a class="page-link" onclick="moveToPage(${firstPage-1})">&lt;</a></li>`;
+        }
+
+        for (let i = firstPage; i <= lastPage; i++) {
+            if (i == page) {
+                paginationHTML += ` <li class="page-item"><a class="page-link active">${i}</a></li>`;
+            } else {
+                paginationHTML += ` <li class="page-item"><a class="page-link" onclick="moveToPage(${i})">${i}</a></li>`;
+            }
+            
+        }
+
+        if (lastPage !== totalPages) {
+            paginationHTML += `<li class="page-item"><a class="page-link" onclick="moveToPage(${lastPage+1})">&gt;</a></li>`;
+        } else {
+            paginationHTML += `<li class="page-item disabled"><a class="page-link" onclick="moveToPage(${lastPage+1})">&gt;</a></li>`;
+        }
+
+        document.getElementById("page_bottom").innerHTML = paginationHTML;
+        document.getElementById("page_pop").innerHTML = paginationHTML;
+    };
+
+    const moveToPage = (pageNum) => {
+        console.log("ppp",pageNum);
+        page = pageNum;
+        renderNews();
+    }
 
 // * UI 관련 함수 설정
 
@@ -238,6 +307,49 @@
         }    
     }
 
+    // !  pagination popup 토글
+
+    const togglePagePopup = (event) => {
+        console.log(event);
+        console.log("c",document.querySelector(".pagination").style);
+
+        // if (event.target.textContent == ">") {
+        if ( togglePopupState == "show") {
+            document.querySelector(".page_box").style.display = "none";
+            event.target.innerHTML = "&lt;"
+            togglePopupState = "hide"
+        } else {
+            document.querySelector(".page_box").style.display = "block";
+            event.target.innerHTML = "&gt"
+            togglePopupState = "show"
+        }
+        
+        
+    };
+
+    // ! 스크롤 최하단 도착시 pagination popup 숨김
+
+    window.onscroll = function() {
+        let windowHeight = window.innerHeight; // 브라우저 창의 높이
+        let documentHeight = document.documentElement.scrollHeight; // 문서 전체의 높이
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop; // 현재 스크롤된 높이
+        let plusHeight = 60;
+
+            if ( windowHeight + scrollTop >= documentHeight - plusHeight) {
+
+                if (togglePopupState == "show") {
+                    document.querySelector('.page_box').style.display = 'none';
+                }
+                document.querySelector('.page_toggle_box button').style.display = 'none';
+            } else {
+                if (togglePopupState == "show") {
+                    document.querySelector('.page_box').style.display = 'block';
+                }
+                document.querySelector('.page_toggle_box button').style.display = 'block';
+            }
+        
+    };
+
     // ! 카테고리 선택 리셋, (navItem 선택시, 검색시)
 
     const resetCategory = () => {
@@ -247,5 +359,5 @@
     
 // * 처음 진입 시 화면 랜더링
 
-
-    getLatestNews();
+    // getLatestNews();
+    renderNews();

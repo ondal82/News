@@ -119,9 +119,11 @@ body{background: #fff; color: #333;}
 // main
 
 main {
+    position: relative;
     border: solid 1px #333;
     text-align: center;
-    // margin: 10px;
+    overflow: auto;
+    // margin: 10px 0 50px;
     // width: 100%;
 }
 
@@ -184,7 +186,7 @@ header {
         border-bottom: 1px solid #bebebe;
     }
 
-    nav {
+    .main_nav {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -217,11 +219,9 @@ header {
 }
 
 .headline {
-    margin-top: 1em;
+    // margin-top: 1em;
     // border: solid 1px #b13c3c;
     text-align: left;
-
-
 
     .card_hl {
         border-bottom: solid 1px #333;
@@ -239,8 +239,9 @@ header {
             object-fit: cover;
             border: solid 1px #78a4f725;
             min-height: 230px;
-            max-height: 400px;
+            max-height: 350px;
             // max-height: 250px;
+            border-radius: 5px;
         }
 
         .article_box {
@@ -363,11 +364,79 @@ header {
         color:#ffffff;
     }
 
+}
 
+.page_box {
+    display: none;
+    position: fixed;
+    bottom:20px;
+    right:65px;
+    border: solid 2px #83c8d4e0;
+    border-radius: 30px;
+    background-color: #d0f2f8e0;
+    
+        
+    ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 30px;
+        margin-bottom: 0px !important;
 
-    .side_nav {
+        li:hover {
+            cursor: pointer;
+            opacity: 0.7;
+        }
+    
+        .active {
+            cursor: auto;
+        }
+    }
+
+}
+
+.page_toggle_box {
+    
+    button {
+        position: fixed;
+        bottom: 27px;
+        right: 10px;
+        border: none;
+        background: #d0f2f8e0;
+        border: solid 2px #83c8d4;
+        border-radius: 30px;
+        display: inline;
+        font-size: 20px;
+        font-weight: 900;
+        color: #83c8d4;
+        width: 50px;
+        height: 50px;
+        line-height: 30px;
+        padding: 0 0 2px 0;
 
     }
 }
+
+.page_box_bottom {
+
+    ul {
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        margin-bottom: 0px !important;
+
+        li:hover {
+            cursor: pointer;
+            opacity: 0.6;
+        }
+    
+        .active {
+            cursor: auto;
+        }
+    }
+}
+
 
 

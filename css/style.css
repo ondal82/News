@@ -284,7 +284,7 @@ header .main_nav .selected {
 .page_box {
   display: none;
   position: fixed;
-  bottom: 20px;
+  bottom: 83px;
   right: 65px;
   border: solid 2px rgba(131, 200, 212, 0.8784313725);
   border-radius: 30px;
@@ -303,11 +303,13 @@ header .main_nav .selected {
 }
 .page_box ul .active {
   cursor: auto;
+  border: solid 1px #82c1ca;
+  background-color: #6ecedf;
 }
 
 .page_toggle_box button {
   position: fixed;
-  bottom: 27px;
+  bottom: 90px;
   right: 10px;
   border: none;
   background: rgba(208, 242, 248, 0.8784313725);
@@ -323,6 +325,27 @@ header .main_nav .selected {
   padding: 0 0 2px 0;
 }
 
+.top_short_cut a {
+  position: fixed;
+  bottom: 27px;
+  right: 10px;
+  border: none;
+  background: rgba(208, 242, 248, 0.8784313725);
+  border: solid 2px #83c8d4;
+  border-radius: 30px;
+  display: inline;
+  font-size: 20px;
+  font-weight: 900;
+  color: #83c8d4;
+  width: 50px;
+  height: 50px;
+  line-height: 40px;
+  padding: 0 0 2px 0;
+}
+.top_short_cut a:hover {
+  opacity: 0.7;
+}
+
 .page_box_bottom ul {
   display: flex;
   justify-content: center;
@@ -336,4 +359,6 @@ header .main_nav .selected {
 }
 .page_box_bottom ul .active {
   cursor: auto;
+  border: solid 1px #82c1ca;
+  background-color: #6ecedf;
 }

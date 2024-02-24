@@ -215,6 +215,8 @@
 
     const getNewsByKeyword = async (event) => {
 
+        page = 1;
+
         resetCategory();
 
         const keyword = document.getElementById("input_box").value;
@@ -243,38 +245,63 @@
         let lastPage = pageGroup * groupSize;
 
         if (lastPage > totalPages) {
+            // (lastPage - totalPages)
             lastPage = totalPages
         };
 
         const firstPage = lastPage - (groupSize - 1)<=0? 1:lastPage - (groupSize - 1);
 
-    // ! ---
+    
+    // ! --- 페이지네이션
 
         let paginationHTML = ``;
 
+
+
         if (firstPage !== 1){
-            paginationHTML += `<li class="page-item"><a class="page-link" onclick="moveToPage(${firstPage-1})">&lt;</a></li>`;
+            paginationHTML += `<li class="page-item"><a class="page-link text-body-tertiary" onclick="moveToPage(${firstPage-1})">&lt;</a></li>`;
         } else {
-            paginationHTML += `<li class="page-item disabled"><a class="page-link" onclick="moveToPage(${firstPage-1})">&lt;</a></li>`;
+            // paginationHTML += `<li class="page-item disabled"><a class="page-link")">&lt;</a></li>`;
         }
 
         for (let i = firstPage; i <= lastPage; i++) {
             if (i == page) {
                 paginationHTML += ` <li class="page-item"><a class="page-link active">${i}</a></li>`;
             } else {
-                paginationHTML += ` <li class="page-item"><a class="page-link" onclick="moveToPage(${i})">${i}</a></li>`;
+                paginationHTML += ` <li class="page-item"><a class="page-link text-body-tertiary" onclick="moveToPage(${i})">${i}</a></li>`;
             }
             
         }
 
         if (lastPage !== totalPages) {
-            paginationHTML += `<li class="page-item"><a class="page-link" onclick="moveToPage(${lastPage+1})">&gt;</a></li>`;
+            paginationHTML += `<li class="page-item"><a class="page-link text-body-tertiary" onclick="moveToPage(${lastPage+1})">&gt;</a></li>`;
         } else {
-            paginationHTML += `<li class="page-item disabled"><a class="page-link" onclick="moveToPage(${lastPage+1})">&gt;</a></li>`;
+            // paginationHTML += `<li class="page-item disabled"><a class="page-link")">&gt;</a></li>`;
         }
 
-        document.getElementById("page_bottom").innerHTML = paginationHTML;
+    // ! <<,>> 제외 하고 팝업창 먼저 렌더
+
         document.getElementById("page_pop").innerHTML = paginationHTML;
+
+
+    // ! << , >> 기능 (popup창에는 포함 안됨)
+
+        if (pageGroup !== 1){
+            paginationHTML = `<li class="page-item"><a class="page-link text-body-tertiary" onclick="moveToPage(1)">&Lt;</a></li>` + paginationHTML;
+        } else {
+            // paginationHTML += `<li class="page-item disabled"><a class="page-link")">&Lt;</a></li>`;
+        }
+
+        if (lastPage !== totalPages) {
+            paginationHTML += `<li class="page-item"><a class="page-link text-body-tertiary" onclick="moveToPage(${totalPages})">&Gt;</a></li>`;
+        } else {
+            // paginationHTML += `<li class="page-item disabled"><a class="page-link")">&Gt;</a></li>`;
+        }
+
+    // ! 나머지 추가하여 화면 하단 페이지네이션 렌더
+
+        document.getElementById("page_bottom").innerHTML = paginationHTML;
+        
     };
 
     const moveToPage = (pageNum) => {

@@ -112,6 +112,8 @@
 
     const renderBlank = () => {
 
+        page = 0;
+
         resetCategory();
 
         const newsBlank = `<div class="row card_hl">

@@ -112,7 +112,7 @@
 
     const renderBlank = () => {
 
-        paginationHTML ="";
+        paginationHTML =`<li class="page-item"><a class="page-link active">${1}</a></li>`;
         document.getElementById("page_pop").innerHTML = paginationHTML;
         document.getElementById("page_bottom").innerHTML = paginationHTML;
 

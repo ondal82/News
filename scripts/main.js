@@ -112,7 +112,9 @@
 
     const renderBlank = () => {
 
-        page = 0;
+        paginationHTML ="";
+        document.getElementById("page_pop").innerHTML = paginationHTML;
+        document.getElementById("page_bottom").innerHTML = paginationHTML;
 
         resetCategory();
 

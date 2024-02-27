@@ -5,6 +5,7 @@
     const API_KEY_NewsApi = `cdd4b0ea8b224300ab35acd8f3ed4981`;
 
     const api_url = `https://news-on.netlify.app`;
+    
     // `https://news-on.netlify.app`; //! 배포시 주소, netlify의 _redirects 기능으로 누나 API 주소 연결
     // `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com`; // ! 누나 API, 테스트 가능하지만 배포는 http인 것 주의
     // `https://newsapi.org/v2`; // ! news-api, 문서> https://newsapi.org/docs
@@ -21,7 +22,10 @@
 
 
     let url = new URL(
-        `${api_url}/top-headlines?country=${api_country}&apiKey=${API_KEY_NewsApi}`
+        // `${api_url}/top-headlines?country=${api_country}&apiKey=${API_KEY_NewsApi}`
+        `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttblusci2359001&Query=aladdin&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Version=20131101`
+        // `https://www.aladin.co.kr/ttb/api/test/ItemSearch.js?ttbkey=ttblusci2359001&Query=aladdin&QueryType=Title&MaxResults=10&SearchTarget=Book&output=js`
+        // `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttblusci2359001`
         );
 
     let newsList = [];
@@ -149,10 +153,13 @@
 
         try {
 
-            url.searchParams.set("page",page);
-            url.searchParams.set("pageSize",pageSize);
+            // url.searchParams.set("page",page);
+            // url.searchParams.set("pageSize",pageSize);
 
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                method: 'GET',
+                // mode: 'no-cors',
+            });
 
             const data = await response.json();
             newsList = data.articles;

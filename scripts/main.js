@@ -23,7 +23,8 @@
 
     let url = new URL(
         // `${api_url}/top-headlines?country=${api_country}&apiKey=${API_KEY_NewsApi}`
-        `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttblusci2359001&Query=aladdin&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Version=20131101`
+        // `https://cors-anywhere.herokuapp.com/https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttblusci2359001&Query=aladdin&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Version=20131101`
+        `https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttblusci2359001&Query=aladdin&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Version=20131101`
         // `https://www.aladin.co.kr/ttb/api/test/ItemSearch.js?ttbkey=ttblusci2359001&Query=aladdin&QueryType=Title&MaxResults=10&SearchTarget=Book&output=js`
         // `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttblusci2359001`
         );
@@ -158,6 +159,7 @@
 
             const response = await fetch(url, {
                 method: 'GET',
+                headers: { Origin:`http://news-on.netlify.app`, }
                 // mode: 'no-cors',
             });
 
